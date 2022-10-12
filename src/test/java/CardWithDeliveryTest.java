@@ -41,13 +41,13 @@ public class CardWithDeliveryTest {
     @Test
     public void shouldTestWithChoice() {
         String newDate = generateDate(7);
+        LocalDate selected = LocalDate.now().plusDays(3);
+        LocalDate required = LocalDate.now().plusDays(7);
         String calendarDate = String.valueOf(LocalDate.now().plusDays(7).getDayOfMonth());
-        String planningDate = String.valueOf(LocalDate.now().plusDays(7).getMonth());
-        String deliveryDate = String.valueOf(LocalDate.now().plusDays(3).getMonth());
         $("[data-test-id='city'] input").setValue("Мос");
         $("[data-test-id='city'] input").sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
         $("button .icon-button__content").click();
-        if (!Objects.equals(planningDate, deliveryDate)) {
+        if (selected.getMonthValue() != required.getMonthValue()) {
             $("[data-step='1']").click();
         }
         $$("table.calendar__layout td").find(text(calendarDate)).click();
